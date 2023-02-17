@@ -42,6 +42,7 @@ dependencies:
   font_awesome_flutter:
   lottie:
   dio:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:

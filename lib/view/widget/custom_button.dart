@@ -4,8 +4,10 @@ import 'package:yuma_task/view/widget/text_widget.dart';
 class CustomButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
+  final Color? color;
+  final bool isLoading;
   const CustomButton({
-    super.key, required this.buttonText, required this.onPressed,
+    super.key, required this.buttonText, required this.onPressed, this.color,  this.isLoading=false,
   });
 
   @override
@@ -25,12 +27,26 @@ class CustomButton extends StatelessWidget {
         minWidth: double.infinity,
         height: 50,
         onPressed: onPressed,
-        color: Colors.yellow.withOpacity(0.8),
+        color: color,
         elevation: 0,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50)
         ),
-        child: TextWidget(
+        child:isLoading
+            ?Center(child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextWidget(
+                  value: 'Please Wait...',
+                  textColor: Colors.red.withOpacity(0.5),
+                  fontWeight: FontWeight.w700,
+                  size: 18.sp,
+                ),
+                SizedBox(width: 10.w,),
+                SizedBox(height:30.h,width:30.w ,child: CircularProgressIndicator(color: Colors.red.withOpacity(0.5),)),
+              ],
+            ),)
+            : TextWidget(
           value: buttonText,
           textColor: Colors.black,
           fontWeight: FontWeight.w700,

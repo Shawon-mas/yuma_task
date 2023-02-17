@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 const String loginLottie='https://assets3.lottiefiles.com/private_files/lf30_ul3enyal.json';
@@ -45,7 +46,17 @@ infoSnackBar(BuildContext context, String text) {
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
-
+successToast(String text){
+  return  Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      fontSize: 16.0
+  );
+}
 getErrorSnack(String value){
   Get.snackbar(
     value,

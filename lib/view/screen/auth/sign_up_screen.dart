@@ -162,12 +162,14 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.h,),
-            CustomButton(
+            Obx(() => CustomButton(
+              isLoading: controller.isSignUpDone.value,
               buttonText: 'Sign Up',
+              color: Colors.yellow.withOpacity(0.7),
               onPressed: (){
-
+                controller.checkSignUpTextField(context);
               },
-            ),
+            ),),
             SizedBox(height: 20.h,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -182,7 +184,7 @@ class SignUpScreen extends StatelessWidget {
                 SizedBox(width: 5.w,),
                 TextWidget(
                   onPressed: (){
-                    Get.to(()=> SignInScreen());
+                    Get.offAll(()=> SignInScreen());
                   },
                   value: "Sign In",
                   textColor: Colors.red.withOpacity(0.7),

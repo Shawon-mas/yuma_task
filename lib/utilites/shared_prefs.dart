@@ -13,14 +13,7 @@ class SharedPrefs {
     return prefs.getString('user_id');
   }
 
-  storeUserNumber(userNumber) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('user_number', userNumber);
-  }
-  getUserNumber() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('user_number');
-  }
+
   //Session Manager
   isLogin(value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -32,36 +25,16 @@ class SharedPrefs {
     return prefs.getBool('isLogin');
   }
 
-  removeLogin() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.remove('isLogin');
-  }
-  //User Info Store
 
-  storeUserData(user) async {
+//Session Store
+  saveSession(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('user_info', user);
+    prefs.setString('session_id', token);
   }
 
-  getUserData() async {
+  getSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('user_info');
-  }
-
-  removeUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.remove('user_info');
-  }
-
-//Token Store
-  saveToken(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('access_token', token);
-  }
-
-  getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('access_token');
+    return prefs.getString('session_id');
   }
 
 

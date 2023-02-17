@@ -65,7 +65,7 @@ class SignInScreen extends StatelessWidget {
                      ),
                      child: CustomTextField(
                        prefixIcon: FontAwesomeIcons.userLarge,
-                       hintText: 'Username',
+                       hintText: 'Email',
                        controller: controller.userSignInController,
                        focusNode: controller.userSignInFocus,
                        nextFocus: controller.passwordSignInFocus,
@@ -96,14 +96,15 @@ class SignInScreen extends StatelessWidget {
                      ),
                    ),
                    SizedBox(height: 30.h,),
-                   CustomButton(
+                   Obx(() => CustomButton(
+                     isLoading: controller.isSignInDone.value,
                      buttonText: 'Sign in',
+                     color: Colors.yellow,
                      onPressed: (){
-                              if(controller.userSignInController.text.contains('@')){
-
-                              }
+                       controller.checkSignInTextField(context);
                      },
-                   ),
+                   ),),
+
                    SizedBox(height: 20.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
