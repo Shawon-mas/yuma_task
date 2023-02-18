@@ -65,7 +65,7 @@ class SignInScreen extends StatelessWidget {
                      ),
                      child: CustomTextField(
                        prefixIcon: FontAwesomeIcons.userLarge,
-                       hintText: 'Email',
+                       hintText: 'Username',
                        controller: controller.userSignInController,
                        focusNode: controller.userSignInFocus,
                        nextFocus: controller.passwordSignInFocus,

@@ -109,7 +109,7 @@ class SignUpScreen extends StatelessWidget {
               child: CustomTextField(
                 prefixIcon: FontAwesomeIcons.message,
                 hintText: 'Email',
-                controller: controller.userSignUpController,
+                controller: controller.emailSignUpController,
                 focusNode: controller.emailSignUpFocus,
                 nextFocus: controller.userSignUpFocus,
                 inputType: TextInputType.text,
@@ -131,7 +131,7 @@ class SignUpScreen extends StatelessWidget {
               child: CustomTextField(
                 prefixIcon: FontAwesomeIcons.userLarge,
                 hintText: 'Username',
-                controller: controller.emailSignUpController,
+                controller: controller.userSignUpController,
                 focusNode: controller.userSignUpFocus,
                 nextFocus: controller.passwordSignUpFocus,
                 inputType: TextInputType.text,

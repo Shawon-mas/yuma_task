@@ -68,8 +68,8 @@ class DashBoardScreen extends StatelessWidget {
               ],
             ),
             customFields(
-              title: 'Email',
-              textEditingController: controller.emailHomeController,
+              title: 'Username',
+              textEditingController: controller.userHomeController,
               enabled: false,
             ),
           ],

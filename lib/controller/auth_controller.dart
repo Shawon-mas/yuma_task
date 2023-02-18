@@ -169,7 +169,7 @@ class AuthController extends GetxController {
           print(await SharedPrefs().getUserEmail());
           firstNameHomeController.text= await SharedPrefs().getUserFn();
           lastNameHomeController.text= await SharedPrefs().getUserLn();
-          emailHomeController.text= await SharedPrefs().getUserEmail();
+          userHomeController.text= await SharedPrefs().getUserEmail();
 
         }
 
