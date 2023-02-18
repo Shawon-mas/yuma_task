@@ -42,6 +42,7 @@ dependencies:
   font_awesome_flutter:
   lottie:
   dio:
+  flutter_local_notifications: ^13.0.0
   fluttertoast:
 
 dev_dependencies:

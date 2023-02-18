@@ -8,6 +8,8 @@ import 'package:get/get.dart'hide Response, FormData, MultipartFile;
 
 import '../data/network/api_services.dart';
 import '../data/network/response_repository.dart';
+
+import '../model/profile_data_model.dart';
 import '../utilites/global_constants.dart';
 import '../utilites/shared_prefs.dart';
 import '../view/screen/auth/dashboard_screen.dart';
@@ -35,10 +37,14 @@ class AuthController extends GetxController {
   final TextEditingController userSignUpController = TextEditingController();
   final TextEditingController passwordSignUpController = TextEditingController();
 
+  //profile data controller
+  final TextEditingController firstNameHomeController = TextEditingController();
+  final TextEditingController lastNameHomeController = TextEditingController();
+  final TextEditingController emailHomeController = TextEditingController();
+  final TextEditingController userHomeController = TextEditingController();
+
   var isSignInDone = false.obs;
   var isSignUpDone = false.obs;
-
-
 
   checkSignInTextField(BuildContext context) {
     if (userSignInController.text.isEmpty ||
@@ -73,33 +79,29 @@ class AuthController extends GetxController {
       if(response !=null){
         print(response);
         successToast('User Sign In Successfully Done');
-        await SharedPrefs().isLogin(true);
+       await SharedPrefs().isLogin(true);
         await SharedPrefs().saveSession(response.data[ApiUtils.userAuthSessionId]);
         await SharedPrefs().storeUserId(response.data[ApiUtils.userAuthUniqueId]);
-        print(await SharedPrefs().getIsLogin());
+      //  print(await SharedPrefs().getIsLogin());
         print(await SharedPrefs().getSession());
         print(await SharedPrefs().getUserId());
         isSignInDone.value=false;
-        Get.offAll(()=>DashBoardScreen());
-
+       Get.offAll(()=>DashBoardScreen());
+      //  _getProfileData();
       }
 
     }catch (e) {
       if (e is DioError) {
         if (e.response!.statusCode == 409) {
 
-           print('409 Conflict error: ${e.response}');
           errorSnackBar(context, "Credentials did not match");
           isSignInDone.value=false;
         } else {
 
-           print('Other DioError: ${e.response}');
           errorSnackBar(context, "User Email ${userSignInController.text} doesnt exist");
           isSignInDone.value=false;
         }
       } else {
-
-          print('Other exception: $e');
         errorSnackBar(context, "Something went wrong");
         isSignInDone.value=false;
       }
@@ -133,24 +135,68 @@ class AuthController extends GetxController {
       if (e is DioError) {
         if (e.response!.statusCode == 409) {
 
-       //   print('409 Conflict error: ${e.response}');
-          errorSnackBar(context, "User Email already exists in Database");
+          errorSnackBar(context, "User Email:${emailSignUpController.text} already exists in Database");
           isSignUpDone.value=false;
         } else {
 
-        //  print('Other DioError: ${e.response}');
           errorSnackBar(context, "Something went wrong");
           isSignUpDone.value=false;
         }
       } else {
-
-      //  print('Other exception: $e');
         errorSnackBar(context, "Something went wrong");
         isSignUpDone.value=false;
       }
     }
   }
+  _getProfileData() async{
+
+   // var session=await SharedPrefs().getSession();
+    print('Session id: ${await SharedPrefs().getSession()}');
+
+      try {
+        final dio = Dio();
+        dio.options.headers[ApiUtils.userAuthSession] = await SharedPrefs().getSession();
+        final response=await dio.get('${ApiUtils.userProfileUrl}${await SharedPrefs().getUserId()}');
+        if(response.statusCode==200){
+
+          print(response);
+          final model=profileDataModelFromJson(response.toString());
+          await SharedPrefs().storeUserEmail(model!.username);
+          await SharedPrefs().storeUserFn(model.profile!.firstName);
+          await SharedPrefs().storeUserLn(model.profile!.lastName);
+          print(await SharedPrefs().getUserFn());
+          print(await SharedPrefs().getUserLn());
+          print(await SharedPrefs().getUserEmail());
+          firstNameHomeController.text= await SharedPrefs().getUserFn();
+          lastNameHomeController.text= await SharedPrefs().getUserLn();
+          emailHomeController.text= await SharedPrefs().getUserEmail();
+
+        }
+
+      }  catch (e) {
+        if (e is DioError) {
+          if (e.response!.statusCode == 409) {
+
+         print(e.response);
+          } else {
+
+            print(e.response);
+          }
+        } else {
+          print(e.toString());
+        }
+      }
 
 
+  }
+
+
+@override
+  void onInit() {
+    // TODO: implement onInit
+ // _getProfileDataFromLocal();
+   _getProfileData();
+    super.onInit();
+  }
 }
 

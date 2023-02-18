@@ -4,7 +4,7 @@ class ApiUtils{
   static const String signInUrl='$baseUrl/consumer/login';
   static const String signUpUrl='$baseUrl/consumer/register';
 
-  static const String userProfileUrl='$baseUrl/consumer/$userAuthId';
+  static const String userProfileUrl='$baseUrl/consumer/';
 
   //api key
   static const String firstNameAuth='first_name';
