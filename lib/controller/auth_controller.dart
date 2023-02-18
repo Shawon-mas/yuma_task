@@ -82,12 +82,12 @@ class AuthController extends GetxController {
        await SharedPrefs().isLogin(true);
         await SharedPrefs().saveSession(response.data[ApiUtils.userAuthSessionId]);
         await SharedPrefs().storeUserId(response.data[ApiUtils.userAuthUniqueId]);
-      //  print(await SharedPrefs().getIsLogin());
+
         print(await SharedPrefs().getSession());
         print(await SharedPrefs().getUserId());
         isSignInDone.value=false;
        Get.offAll(()=>DashBoardScreen());
-      //  _getProfileData();
+      _getProfileData();
       }
 
     }catch (e) {
@@ -124,7 +124,6 @@ class AuthController extends GetxController {
       var response = await authPost(url: ApiUtils.signUpUrl, body: request);
       if(response !=null){
         print(response.data);
-        print(response.statusCode);
         successToast('User Sign Up Successfully Done');
         isSignUpDone.value=false;
         Get.offAll(()=>SignInScreen());
@@ -150,8 +149,8 @@ class AuthController extends GetxController {
   }
   _getProfileData() async{
 
-   // var session=await SharedPrefs().getSession();
-    print('Session id: ${await SharedPrefs().getSession()}');
+
+
 
       try {
         final dio = Dio();
