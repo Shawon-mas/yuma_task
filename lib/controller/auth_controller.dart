@@ -98,7 +98,7 @@ class AuthController extends GetxController {
           isSignInDone.value=false;
         } else {
 
-          errorSnackBar(context, "User Email ${userSignInController.text} doesnt exist");
+          errorSnackBar(context, "Username doesn't exist");
           isSignInDone.value=false;
         }
       } else {
