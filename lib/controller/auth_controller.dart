@@ -135,7 +135,7 @@ class AuthController extends GetxController {
       if (e is DioError) {
         if (e.response!.statusCode == 409) {
 
-          errorSnackBar(context, "User Email:${emailSignUpController.text} already exists in Database");
+          errorSnackBar(context, "Username already exists in Database");
           isSignUpDone.value=false;
         } else {
 
